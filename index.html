@@ -40,10 +40,9 @@ when loaded called loaded ready function
 */
 queue()
 	.defer(d3.json, "d3.json")
-	.defer(d3.tsv, "d3.tsv")
 	.await(ready);
 
-function ready(error, world, names) { //called when data files are loaded
+function ready(error, world) { //called when data files are loaded
 	if (error) { //will change this
 		alert("the data was not loaded properly")
 	}
@@ -57,7 +56,7 @@ function ready(error, world, names) { //called when data files are loaded
 			return a !== b;
 		});
 
-	countries = [
+	countries = [ //sample country data
 		{
 			name: "new york",
 			coordinates: {
@@ -89,7 +88,7 @@ function ready(error, world, names) { //called when data files are loaded
 	];
 
 	var i = -1; //variable for looping through country objects
-	n = countries.length;
+	var n = countries.length;
 
 	(function transition() {
 		d3.transition()
@@ -121,5 +120,4 @@ function ready(error, world, names) { //called when data files are loaded
 	})();
 }
 
-d3.select(self.frameElement).style("height", height + "px");
 </script>
