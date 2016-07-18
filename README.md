@@ -8,3 +8,5 @@ git clone https://github.com/rileymjohnson/globe-test.git globe-test
 cd globe-test
 
 python -m SimpleHTTPServer
+
+then open http://localhost:8000 in a web browser
