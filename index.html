@@ -1,18 +1,6 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-
-h1 {
-  position: absolute;
-  top: 500px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  text-align: center;
-  width: 960px;
-}
-
-</style>
 <h1></h1>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/queue.v1.min.js"></script>
@@ -46,8 +34,6 @@ var path = d3.geo.path()
 	.projection(projection)
 	.context(c);
 
-var title = d3.select("h1");
-
 /*
 asynchronously load country data files
 when loaded called loaded ready function
@@ -70,18 +56,6 @@ function ready(error, world, names) { //called when data files are loaded
 	var borders = topojson.mesh(world, world.objects.countries, function(a, b) {
 			return a !== b;
 		});
-	var i = -1;
-	var n = countries.length;
-
-	countries = countries.filter(function(d) {
-		return names.some(function(n) {
-			if (d.id == n.id) return d.name = n.name;
-		});
-	}).sort(function(a, b) {
-		return a.name.localeCompare(b.name);
-	});
-
-	countries = countries.slice(0,5);
 
 	countries = [
 		{
@@ -114,6 +88,7 @@ function ready(error, world, names) { //called when data files are loaded
 		}
 	];
 
+	var i = -1; //variable for looping through country objects
 	n = countries.length;
 
 	(function transition() {
@@ -121,7 +96,9 @@ function ready(error, world, names) { //called when data files are loaded
 			.duration(1250) //ms it takes for globe to change locations
 			.each("start", function() {
 				i = (i + 1) % n; //adds one. mod n restarts the number when it gets to the end of the list
-				title.text(countries[i].name); //sets name
+
+				//this is the spot where you would update all of the other charts and graphs and stuff. Right now I'm just logging the name
+				console.log(countries[i].name)
 			})
 			.tween("rotate", function() {
 				//needs to be in form: north, west
