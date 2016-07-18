@@ -14,6 +14,5 @@ This cannot be run just by opening the index.html file because it requests a jso
 <code>
 	python -m SimpleHTTPServer
 </code>
-<code>
-	then open http://localhost:8000 in a web browser
-</code>
+
+then open http://localhost:8000 in a web browser
