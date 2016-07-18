@@ -1,6 +1,9 @@
 //canvas dimensions
-var width = 500;
-var height = 500;
+//these numbers will not affect the actual size of the globe
+//that is done with css
+//they only affect the resolution
+var width = window.innerWidth / 2; //the /2 is because it is 50% width. if it was 25% it would be divided by 4
+var height = window.innerWidth / 2;
 
 /*
 setting up sphere properties
@@ -14,15 +17,15 @@ projection.precision(.5); //specifies how exact the sphere is. The higher number
 /*
 create canvas and set up default values
 */
-var globeCanvas = d3.select("body").append("canvas") //canvas dom element to hold globe
+var globeCanvas = d3.select("#globeContainer").append("canvas") //canvas dom element to hold globe
 globeCanvas.attr("width", width)
 globeCanvas.attr("height", height)
-	//globeCanvas.style("background-color", "purple")
-	//any additional attributes here
+globeCanvas.style("width", "50%")
+//any additional attributes here
 
 var c = globeCanvas.node().getContext("2d"); //2d rendering context to draw continents on
 
-var path = d3.geo.path()
+var path = d3.geo.path() //path object for drawing on canvas
 	.projection(projection)
 	.context(c);
 
@@ -43,9 +46,9 @@ function ready(error, world) { //called when data files are loaded
 		type: "Sphere"
 	};
 	var land = topojson.feature(world, world.objects.land);
-	var countries = topojson.feature(world, world.objects.countries).features;
+	//var countries = topojson.feature(world, world.objects.countries).features;
 	var borders = topojson.mesh(world, world.objects.countries, function(a, b) {
-		return a !== b;
+		return a !== b; //causes borders not to unnecessarily overlap
 	});
 
 	countries = [ //sample country data
